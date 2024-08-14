@@ -31,13 +31,16 @@ function Assets({ publicKey }: { publicKey: string }) {
     });
   };
 
+  type Tabs = 'tokens' | 'send' | "add_funds" | "swap" | "withdraw"
+  const tabs: Tabs[] = ['tokens', 'send', "add_funds", "swap", "withdraw"]
+
   return (
     <div className="text-slate-400 font-medium mt-4">
       <span className="p-8">Account Assets</span>
       <br />
-      <div className="flex justify-between items-center px-8">
+      <div className="flex justify-between items-center px-8 mb-3">
         {loadingData ? (
-          <Skeleton className="w-44 h-10" />
+          <Skeleton className="w-44 h-8 " />
         ) : (
           <div className="flex justify-center items-center ">
             <h1 className="text-[55px] font-[800] text-black">
@@ -61,7 +64,7 @@ function Assets({ publicKey }: { publicKey: string }) {
         </div>
       </div>
       <div></div>
-      <div className="bg-[#F2F8FC]">
+      <div className="bg-slate-200 rounded-b">
         <TokenList tokens={tokenBalances?.tokens || []} />
       </div>
     </div>

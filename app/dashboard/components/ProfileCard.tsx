@@ -11,9 +11,9 @@ function ProfileCard({ publicKey }: { publicKey: string }) {
   const session = useSession();
   const router = useRouter();
 
-  if (!session?.data?.user) {
-    router.push("/");
-  }
+  // if (!session?.data?.user) {
+  //   router.push("/");
+  // }
   if (session.status == "loading") {
     return <Loader size="40" type="fullscreen" />;
   }
