@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "sb" TEXT NOT NULL DEFAULT '';

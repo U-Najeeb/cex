@@ -1,13 +1,14 @@
-import { Inter as FontSans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
 import Appbar from "@/components/Appbar";
 import { Providers } from "./providers";
 
-const fontSans = FontSans({
+const fontPoppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-poppins",
+  weight: "300",
 });
 
 export default function RootLayout({
@@ -21,7 +22,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          fontPoppins.variable
         )}
       >
         <Providers>
