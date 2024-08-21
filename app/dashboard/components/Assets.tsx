@@ -5,11 +5,13 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import React, { useEffect, useState } from "react";
 import { TokenList } from "./TokenList";
 import { useTokens } from "@/app/api/hooks/useTokens";
+import Swap from "./Swap";
 
 function Assets({ publicKey }: { publicKey: string }) {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
   const { loadingData, tokenBalances } = useTokens(publicKey);
+  const [selectedTab, setSelectedTab] = useState<Tab>("tokens")
 
   useEffect(() => {
     if (copied) {
@@ -31,8 +33,14 @@ function Assets({ publicKey }: { publicKey: string }) {
     });
   };
 
-  type Tabs = 'tokens' | 'send' | "add_funds" | "swap" | "withdraw"
-  const tabs: Tabs[] = ['tokens', 'send', "add_funds", "swap", "withdraw"]
+  type Tab = "tokens" | "send" | "add_funds" | "swap" | "withdraw"
+  const tabs: { id: Tab; name: string }[] = [
+    { id: "tokens", name: "Tokens" },
+    { id: "send", name: "Send" },
+    { id: "add_funds", name: "Add funds" },
+    { id: "withdraw", name: "Withdraw" },
+    { id: "swap", name: "Swap" },
+  ];
 
   return (
     <div className="text-slate-400 font-medium mt-4">
@@ -63,10 +71,16 @@ function Assets({ publicKey }: { publicKey: string }) {
           </Button>
         </div>
       </div>
-      <div></div>
-      <div className="bg-slate-200 rounded-b">
-        <TokenList tokens={tokenBalances?.tokens || []} />
+      <div className="flex justify-between px-6 pb-3">
+        {
+          tabs.map(tab => <Button key={tab.id} onClick={() => setSelectedTab(tab.id)} className={`${selectedTab === tab.id ? 'bg-primary' : "bg-primary/60"}`}>
+            {tab.name}
+          </Button>)
+        }
       </div>
+      {selectedTab === 'tokens' ? <div className="bg-slate-200 rounded-b">
+        <TokenList tokens={tokenBalances?.tokens || []} />
+      </div> : selectedTab === 'swap' ? <Swap /> : null}
     </div>
   );
 }

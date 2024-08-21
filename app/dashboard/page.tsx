@@ -30,7 +30,7 @@ async function Dashboard() {
     return <>No solana wallet found</>;
   }
   return (
-    <div className="bg-[#F2F8FC] h-dvh">
+    <div className="bg-[#F2F8FC] h-[calc(100dvh-3.6rem)]">
       <ProfileCard publicKey={userWallet.userWallet?.publicKey} />
     </div>
   );
